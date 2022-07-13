@@ -1,0 +1,23 @@
+<%= form_with model: @booking do |f| %>
+    <p>Flight Information<p>
+
+    <div class="info">
+        <div><%= @flight.departure_airport.code %></div>
+        <div><%= @flight.arrival_airport.code %></div>
+        <div><%= @flight.departure_time %></div>
+        <div><%= @flight.duration %></div>
+    </div>
+
+    <%= f.fields_for :passengers do |passengers_form| %>
+    <%= hidden_field_tag('booking[flight_id]', @flight.id) %>
+    <%= hidden_field_tag('booking[passenger_amount]', @passenger_amount) %>
+        <li>
+            <%= passengers_form.label :name %>
+            <%= passengers_form.text_field :name %>
+
+            <%= passengers_form.label :email %>
+            <%= passengers_form.email_field :email %>
+        </li>
+    <% end %>
+    <%= f.submit "book" %>
+<% end %>

@@ -20,6 +20,7 @@ a5 = Airport.create(code: "SIN")
 a6 = Airport.create(code: "CGK")
 
 Flight.create(departure_airport_id: a1.id, arrival_airport_id: a2.id, departure_time: DateTime.new(2001,2,3,4,5,6), duration: 7)
+Flight.create(departure_airport_id: a1.id, arrival_airport_id: a2.id, departure_time: DateTime.new(2001,2,3,4,5,6), duration: 17)
 Flight.create(departure_airport_id: a2.id, arrival_airport_id: a3.id, departure_time: DateTime.new(2002,2,3,4,5,6), duration: 8)
 Flight.create(departure_airport_id: a3.id, arrival_airport_id: a4.id, departure_time: DateTime.new(2003,2,3,4,5,6), duration: 9)
 Flight.create(departure_airport_id: a4.id, arrival_airport_id: a5.id, departure_time: DateTime.new(2004,2,3,4,5,6), duration: 10)

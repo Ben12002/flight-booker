@@ -24,10 +24,21 @@
 
 
 <h1>Results</h1>
-<% @search_results.each do |flight| %>
-    <div>
-        <%= flight.departure_airport %>
-        <%= flight.arrival_airport %>
-        <%= flight.departure_time %>
-    </div>
+<% if @render_result %>
+    <%= form_with(url: new_booking_path, method: "get") do |form| %>
+        <%= hidden_field_tag('passenger_amount', @passenger_amount) %>
+        <% @search_results.each do |flight| %>
+            <div class="search-result">
+                <div class="info">
+                    <div><%= flight.departure_airport.code %></div>
+                    <div><%= flight.arrival_airport.code %></div>
+                    <div><%= flight.departure_time %></div>
+                    <div><%= flight.duration %></div>
+                </div>
+                <%= form.radio_button :flight_id, flight.id %>
+            </div>
+        <% end %>
+
+        <%= form.submit "book" %>
+    <% end %>
 <% end %>
