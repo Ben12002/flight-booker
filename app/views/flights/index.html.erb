@@ -1,0 +1,33 @@
+<%= form_with(scope: :search, url: flights_path, method: "get") do |form| %>
+
+    <%= label_tag(:departure_airport_id, "From:") %>
+    <%= form.collection_select :departure_airport_id, Airport.order(:code), :id, :code %>
+
+    <%= label_tag(:arrival_airport_id, "To:") %>
+    <%= form.collection_select :arrival_airport_id, Airport.order(:code), :id, :code %>
+
+    <%= label_tag(:departure_time, "Departure time:") %>
+    <%= form.collection_select :departure_time, Flight.order(:departure_time), :departure_time, :departure_time_formatted %>
+
+    <%= label_tag(:passenger_amount, "Number of passengers:") %>
+    <select name="search[passenger_amount]" id = "passenger_amount" ">
+        <option value=1> 1 </option>
+        <option value=2> 2 </option>
+        <option value=3> 3 </option>
+        <option value=4> 4 </option>
+    </select>
+
+    <%= form.submit "search" %>
+<% end %>
+
+
+
+
+<h1>Results</h1>
+<% @search_results.each do |flight| %>
+    <div>
+        <%= flight.departure_airport %>
+        <%= flight.arrival_airport %>
+        <%= flight.departure_time %>
+    </div>
+<% end %>
