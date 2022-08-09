@@ -14,7 +14,22 @@ class BookingsController < ApplicationController
 
     if @booking.save
       redirect_to root_path
+      flash[:notice] = "We've sent you a confirmation email."
+      
+      @passengers = booking_params[:passengers_attributes] # equivalent to @passengers = params[:booking][:passengers_attributes]
+
+      @passengers.each do |key, value|
+        curr_passenger = Passenger.where(email: value[:email])[0]
+        # curr_flight_id = params[:booking][:flight_id]
+        curr_flight_id = booking_params[:flight_id]
+
+        PassengerMailer.with(flight_id: curr_flight_id, 
+                             passenger: curr_passenger).confirmation_email.deliver_now
+      end
+      
+      
     else
+      flash[:alert] = "Failed to book"
       render :new, status: :unprocessable_entity
     end
   end
